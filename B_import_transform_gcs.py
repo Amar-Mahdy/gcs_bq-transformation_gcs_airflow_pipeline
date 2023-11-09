@@ -17,8 +17,8 @@ from airflow.providers.google.cloud.transfers.bigquery_to_gcs import BigQueryToG
 
 LOCAL_TZ = pendulum.timezone("Europe/Amsterdam")
 
-DAG_NAME = "merklenl_leenbakker_productfeed_import_transform_gcs" # DAG name (proposed format: lowercase underscore). Should be unique.
-DAG_DESCRIPTION = "Import the Leenbakker productfeed to Big Query"
+DAG_NAME = "productfeed_import_transform_gcs" # DAG name (proposed format: lowercase underscore). Should be unique.
+DAG_DESCRIPTION = "Import productfeed to Big Query"
 DAG_START_DATE = datetime.datetime(2021, 5, 31, tzinfo=LOCAL_TZ) # Startdate. When setting the "catchup" parameter to True, you can perform a backfill when you insert a specific date here like datetime(2021, 6, 20)
 DAG_SCHEDULE_INTERVAL = "0 7 * * *" # Cron notation -> see https://airflow.apache.org/scheduler.html#dag-runs
 DAG_CATCHUP = False # When set to true, DAG will start running from DAG_START_DATE instead of current date
@@ -47,36 +47,36 @@ default_dag_args = {
 
 # Import
 
-GCP_GCS_CONNECTION_ID = 'gcp_merkle_airflow'
-GCP_GCS_BUCKET = 'lb-gcs-import'
-GCP_GCS_BUCKET_SOURCE = 'feeds_prod'
-GCP_BQ_CONNECTION_ID = 'gcp_merkle_airflow'
-GCP_BQ_PROJECT = 'future-cabinet-206910'
-SFTP_CONNECTION_ID = 'sftp_client_leenbakker_ibm'
+GCP_GCS_CONNECTION_ID = 'xxxx'
+GCP_GCS_BUCKET = 'xxxx'
+GCP_GCS_BUCKET_SOURCE = 'xxxx'
+GCP_BQ_CONNECTION_ID = 'xxxx'
+GCP_BQ_PROJECT = 'project.dataset.table'
+SFTP_CONNECTION_ID = 'xxxx'
 
-GCP_GCS_BUCKET_CDN = 'oogst-cdn-static'
+GCP_GCS_BUCKET_CDN = 'xxxx'
 
 PRODUCT_FEEDS = [{
-		'name': 'productfeed_nl_source',
-		'source_gcs': 'priceFeed/priceFeed_lbnl.csv',
-		'destination_gcs_cdn': 'external/leenbakker/productfeed_nl_master.csv',
-		'destination_bq': 'future-cabinet-206910.lb_business_data.productfeed_nl_source',
-		'destination_bq_master_view': 'future-cabinet-206910.lb_business_data.view_productfeed_nl_master',
-		'destination_bq_master': 'future-cabinet-206910.lb_business_data.productfeed_nl_master'
+		'name': 'productfeed_source_nl',
+		'source_gcs': 'file.csv',
+		'destination_gcs_cdn': 'file.csv',
+		'destination_bq': 'project.dataset.table',
+		'destination_bq_master_view': 'project.dataset.table',
+		'destination_bq_master': 'project.dataset.table'
 	},{
-		'name': 'productfeed_be_nl_source',
-		'source_gcs': 'priceFeed/priceFeed_lbbe_nl.csv',
-		'destination_gcs_cdn': 'external/leenbakker/productfeed_be_nl_master.csv',
-		'destination_bq': 'future-cabinet-206910.lb_business_data.productfeed_be_nl_source',
-		'destination_bq_master_view': 'future-cabinet-206910.lb_business_data.view_productfeed_be_nl_master',
-		'destination_bq_master': 'future-cabinet-206910.lb_business_data.productfeed_be_nl_master'
+		'name': 'productfeed_source_be',
+		'source_gcs': 'file.csv',
+		'destination_gcs_cdn': 'file.csv',
+		'destination_bq': 'project.dataset.table',
+		'destination_bq_master_view': 'project.dataset.table',
+		'destination_bq_master': 'project.dataset.table'
 	},{
-		'name': 'productfeed_be_fr_source',
-		'source_gcs': 'priceFeed/priceFeed_lbbe_fr.csv',
-		'destination_gcs_cdn': 'external/leenbakker/productfeed_be_fr_master.csv',
-		'destination_bq': 'future-cabinet-206910.lb_business_data.productfeed_be_fr_source',
-		'destination_bq_master_view': 'future-cabinet-206910.lb_business_data.view_productfeed_be_fr_master',
-		'destination_bq_master': 'future-cabinet-206910.lb_business_data.productfeed_be_fr_master'
+		'name': 'productfeed_source_fr',
+		'source_gcs': 'file.csv',
+		'destination_gcs_cdn': 'file.csv',
+		'destination_bq': 'project.dataset.table',
+		'destination_bq_master_view': 'project.dataset.table',
+		'destination_bq_master': 'project.dataset.table'
 	}
 ]
 
