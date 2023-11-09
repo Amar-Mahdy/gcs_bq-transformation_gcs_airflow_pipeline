@@ -16,7 +16,7 @@ from airflow.providers.google.cloud.transfers.bigquery_to_gcs import BigQueryToG
 # --------------------------------------------------------------------------------
 LOCAL_TZ = pendulum.timezone("Europe/Amsterdam")
 
-DAG_NAME = "merklenl_kwantum_productfeed_import_transform_gcs" # DAG name (proposed format: lowercase underscore). Should be unique.
+DAG_NAME = "productfeed_import_transform_gcs" # DAG name (proposed format: lowercase underscore). Should be unique.
 DAG_DESCRIPTION = "Import the Kwantum productfeed to Big Query"
 DAG_START_DATE = datetime.datetime(2023, 4, 1, tzinfo=LOCAL_TZ) # Startdate. When setting the "catchup" parameter to True, you can perform a backfill when you insert a specific date here like datetime(2021, 6, 20)
 DAG_SCHEDULE_INTERVAL = "0 7 * * *" # Cron notation -> see https://airflow.apache.org/scheduler.html#dag-runs
@@ -45,29 +45,28 @@ default_dag_args = {
 
 # Import
 
-GCP_GCS_CONNECTION_ID = 'gcp_merkle_airflow'
-GCP_GCS_BUCKET = 'kw-gcs-import-feeds'
-GCP_GCS_BUCKET_SOURCE = 'feeds_prod'
-GCP_BQ_CONNECTION_ID = 'gcp_merkle_airflow'
-GCP_BQ_PROJECT = 'kwantum-omnichannel'
-# SFTP_CONNECTION_ID = 'sftp_client_leenbakker_ibm' # seems outdated
+GCP_GCS_CONNECTION_ID = 'xxxx'
+GCP_GCS_BUCKET = 'xxxx'
+GCP_GCS_BUCKET_SOURCE = 'xxxx
+GCP_BQ_CONNECTION_ID = 'xxxx'
+GCP_BQ_PROJECT = 'xxxx'
 
-GCP_GCS_BUCKET_CDN = 'oogst-cdn-static'
+GCP_GCS_BUCKET_CDN = 'xxxx'
 
 PRODUCT_FEEDS = [{
-		'name': 'kw_productfeed_nl_source',
-		'source_gcs': 'priceFeed/priceFeed_kwnl.csv',
-		'destination_gcs_cdn': 'external/leenbakker/kw_productfeed_nl_master_v2.csv',
-		'destination_bq': 'kwantum-omnichannel.kw_business_data.kw_productfeed_nl_source',
-		'destination_bq_master_view': 'kwantum-omnichannel.kw_business_data.view_kw_productfeed_nl_master',
-		'destination_bq_master': 'kwantum-omnichannel.kw_business_data.kw_productfeed_nl_master'
+		'name': 'productfeed_source',
+		'source_gcs': 'file.csv',
+		'destination_gcs_cdn': 'file.csv',
+		'destination_bq': 'project.dataset.table',
+		'destination_bq_master_view': 'project.dataset.table',
+		'destination_bq_master': 'project.dataset.table'
 	},{
-		'name': 'kw_productfeed_be_nl_source',
-		'source_gcs': 'priceFeed/priceFeed_kwbe_nl.csv',
-		'destination_gcs_cdn': 'external/leenbakker/kw_productfeed_be_nl_master_v2.csv',
-		'destination_bq': 'kwantum-omnichannel.kw_business_data.kw_productfeed_be_nl_source',
-		'destination_bq_master_view': 'kwantum-omnichannel.kw_business_data.view_kw_productfeed_be_nl_master',
-		'destination_bq_master': 'kwantum-omnichannel.kw_business_data.kw_productfeed_be_nl_master'
+		'name': 'productfeed_source',
+		'source_gcs': 'file.csv',
+		'destination_gcs_cdn': 'file.csv',
+		'destination_bq': 'project.dataset.table',
+		'destination_bq_master_view': 'project.dataset.table',
+		'destination_bq_master': 'project.dataset.table'
 	}
 ]
 
